@@ -1,1 +1,9 @@
+# Name of website
+title: FoxRunTime!
 
+# Short description of your site
+description: The digital home of FoxRunTime.
+
+navbar-links:
+  About Me: "about"
+  Mac Stuff: "mac"
