@@ -9,3 +9,5 @@ navbar-links:
   Mac Stuff: "mac"
 
 avatar: "sharp.png"
+
+theme: jekyll-theme-cayman
