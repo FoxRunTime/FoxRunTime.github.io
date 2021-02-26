@@ -17,6 +17,24 @@ img {
     transform: rotate(359deg);
   }
 }
+
+  @media (prefers-color-scheme: dark) {
+body {
+background: black;
+    }
+    .main p {
+      color: white;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    body {
+      background: white;
+    }
+    .main p {
+      color: black;
+    }
+  }
+
 .main .funnyfox {
     top: 150px;
     display: flex;
@@ -28,7 +46,6 @@ img {
     font-family: verdana;
     text-align: center;
 }
-  
 </style>
 </head>
 
