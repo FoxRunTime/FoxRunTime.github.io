@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta name="author" content="arfa">
+    <meta name="description" content="TFDNE: A website showcasing AI-generated furries to make you OwO. Do androids dream of electric fox bois? ">
+    <meta name="keywords" content="StyleGAN 2, furry faces, generative art, neural networks, deep learning, generative adversarial networks, gwern.net, Nvidia, X Does Not Exist, e621, fursona, arfafax, arfa, waifu, anime">
+    <meta property="og:image" content="https://thisfursonadoesnotexist.com/owo_stylegan2.jpg">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@arfafax" />
+    <meta name="twitter:title" content="This Fursona Does Not Exist" />
+    <meta name="twitter:description" content="A website showcasing AI-generated furries to make you OwO. Do androids dream of electric fox bois?" />
+    <meta name="twitter:image" content="https://thisfursonadoesnotexist.com/owo_stylegan2.jpg" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165300511-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-165300511-1');
+    </script>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=1.0, user-scalable=yes">
+    <title>This Fursona Does Not Exist</title>
+    <link rel="stylesheet" href="css/fork-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-social.css">
+    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+	<link rel='stylesheet' type='text/css' href='css/TXDNE.css'>
+
+    <style>
+    #prevModal.modal-body {
+      /*background-color: rgba(255, 255, 255, 0.4) !important;*/
+      background-color: #36393f !important;
+    }
+    h2 {
+      bottom: 1.5em;
+      font-size: 0.75em;
+      padding: 0.5em 0.75em;
+      text-shadow:
+        0 0  1px rgba(255,255,255,0.9),
+        0 0  3px rgba(255,255,255,0.9),
+        0 0  5px rgba(255,255,255,0.9);
+      background-color: rgba(255,255,255,0.4);
+      border: 1px solid rgba(0,0,0,0.7);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+      pointer-events: none;
+    }
+    /*
+    @supports (width: fit-content) {
+      h1, h2 {
+        width: fit-content;
+      }
+    }
+    @supports (width: -moz-fit-content) {
+      h1, h2 {
+        width: -moz-fit-content;
+        padding: 0.625em 0.75em 0.5em 0.75em;
+      }
+    }
+    */
+    #navcontainer.hidden,
+    #navbar.hidden {
+      opacity: 0;
+      transition: opacity 30s ease-in 10s;
+      pointer-events: auto;
+    }
+    #navcontainer.hidden:hover,
+    #navbar.hidden:hover {
+      opacity: 1;
+      transition: opacity 0.15s ease 0.1s;
+    }
+    h1 a {
+      display: block;
+      padding: 0.5em 0.75em;
+      color: #fff;
+      text-shadow:
+        0 0  1px rgba(0,0,0,0.9),
+        0 0  3px rgba(0,0,0,0.9),
+        0 0  5px rgba(0,0,0,0.9);
+      background-color: rgba(51,51,51,0.4);
+      border: 1px solid rgba(255,255,255,0.7);
+      position: relative;
+      z-index: 1;
+    }
+    h1 a:nth-of-type(n+2) {
+      border-width: 0 1px 1px 1px;
+      font-weight: normal;
+      font-size: 0.5em;
+    }
+    h1 a:nth-of-type(3) {
+      font-size: 0.75em;
+      font-weight: bold;
+      color: #f00;
+      text-shadow:
+        0 0  1px #fff,
+        0 0  3px #fff,
+        0 0  5px #fff,
+        0 0  8px #fff,
+        0 0 13px #000,
+        0 0 21px #000;
+    }
+    h1 a:link,
+    h1 a:visited {
+      text-decoration: none;
+    }
+    h1 a:hover {
+      color: #c00;
+      text-shadow:
+        0 0  1px #fff,
+        0 0  3px #fff,
+        0 0  5px #fff,
+        0 0  8px #fff,
+        0 0 13px #fff;
+    }
+    @media screen {
+      body {
+        width: 1000px;
+        height: 1000px;
+      }
+      #furry-quilt {
+        width: 1000px;
+        height: 1000px;
+      }
+    }
+    #overlay {
+      position: fixed; /* Sit on top of the page content */
+      display: visible; /* Hidden by default */
+      width: 100%; /* Full width (cover the whole page) */
+      height: 100%; /* Full height (cover the whole page) */
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,1.0); /* Black background with opacity */
+      z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+      cursor: pointer; /* Add a pointer on hover */
+    }
+
+    .paw img{
+      height: 32px;
+      margin-right: 0px;
+      margin-bottom: -4px;
+      vertical-align:text-bottom; /* align the text */
+    }
+
+    #aboutModal a[href*='github.com']::after,
+    #aboutModal a[href*='patreon.com']::after,
+    #aboutModal a[href*='discord.gg']::after,
+    #aboutModal a[href*='mega.zn']::after,
+    #aboutModal a[href*='twitter.com']::after {
+      display: inline-block;
+      margin: 0 0 2px 4px;
+      height: 1.1em;
+      width: 0.75em;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+    #aboutModal a[href*='github.com']::after {
+      color: black;
+      font-family: "ForkAwesome"; content: "\f09b";
+    }
+
+    #aboutModal a[href*='twitter.com']::after {
+      color: black;
+      font-family: "ForkAwesome"; content: "\f099";
+    }
+
+    #aboutModal a[href*='patreon.com']::after {
+      color: black;
+      font-family: "ForkAwesome"; content: "\f2f0";
+    }
+
+    #aboutModal a[href*='discord.gg']::after {
+      color: black;
+      font-family: "ForkAwesome"; content: "\f2ee";
+    }
+
+    #aboutModal a[href*='mega.nz']::after {
+      background-image: url("/static/mega.svg");
+      content: "";
+      display: inline-block;
+      position: static;
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      height: 0.75em;
+      width: 0.75em;
+      margin: 0 0 2px 3px;
+      opacity: 0.60;
+    }
+
+    #aboutModal a[href^="https://www.gwern.net/"]::after {
+      color: black;
+      font-family: "Source Serif Pro",Baskerville,"Libre Baskerville",serif;
+      content: "\1D50A"; /* Gothic G */
+      margin: 0 0 0 2px;
+      /*vertical-align: baseline;*/
+      position: relative;
+      bottom: 0.15em;
+    }
+    #aboutModal a[href^="https://www.shawwn.com/"]::after {
+      color: black;
+      font-family: "Source Serif Pro",Baskerville,"Libre Baskerville",serif;
+      font-size: 1.7em;
+      content: "\1D530"; /* Gothic S */
+      margin: 0 0 0 2px;
+      vertical-align: baseline;
+      position: relative;
+    }
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #loader {
+      display: block;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 150px;
+      height: 150px;
+      margin: -75px 0 0 -75px;
+      border-radius: 50%;
+      border: 6px solid transparent;
+      border-top-color: #440000;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+    #loader:before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border-radius: 50%;
+      border: 8px solid transparent;
+      border-top-color: #880000;
+      -webkit-animation: spin 3s linear infinite;
+      animation: spin 3s linear infinite;
+    }
+    #loader:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      border-top-color: #BB0000;
+      -webkit-animation: spin 1.5s linear infinite;
+      animation: spin 1.5s linear infinite;
+    }
+    @-webkit-keyframes spin {
+      0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes spin {
+      0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+.btn-kofi{color:#fff;background-color:#29abe0;border-color:rgba(0,0,0,0.2)}.btn-kofi:focus,.btn-kofi.focus{color:#fff;background-color:#ff5e5b;border-color:rgba(0,0,0,0.2)}
+.btn-kofi:hover{color:#fff;background-color:#fbaa19;border-color:rgba(0,0,0,0.2)}
+.btn-kofi:active,.btn-kofi.active,.open>.dropdown-toggle.btn-kofi{color:#fff;background-color:#fbaa19;border-color:rgba(0,0,0,0.2)}.btn-kofi:active:hover,.btn-kofi.active:hover,.open>.dropdown-toggle.btn-kofi:hover,.btn-kofi:active:focus,.btn-kofi.active:focus,.open>.dropdown-toggle.btn-kofi:focus,.btn-kofi:active.focus,.btn-kofi.active.focus,.open>.dropdown-toggle.btn-kofi.focus{color:#fff;background-color:#fbaa19;border-color:rgba(0,0,0,0.2)}
+.btn-kofi:active,.btn-kofi.active,.open>.dropdown-toggle.btn-kofi{background-image:none}
+.btn-kofi.disabled:hover,.btn-kofi[disabled]:hover,fieldset[disabled] .btn-kofi:hover,.btn-kofi.disabled:focus,.btn-kofi[disabled]:focus,fieldset[disabled] .btn-kofi:focus,.btn-kofi.disabled.focus,.btn-kofi[disabled].focus,fieldset[disabled] .btn-kofi.focus{background-color:#fbaa19;border-color:rgba(0,0,0,0.2)}
+.btn-kofi .badge{color:#434b57;background-color:#fff}
+
+.btn-patreon{color:#fff;background-color:#f96854;border-color:rgba(0,0,0,0.2)}.btn-patreon:focus,.btn-patreon.focus{color:#fff;background-color:#ff9f86;border-color:rgba(0,0,0,0.2)}
+.btn-patreon:hover{color:#fff;background-color:#f9523b;border-color:rgba(0,0,0,0.2)}
+.btn-patreon:active,.btn-patreon.active,.open>.dropdown-toggle.btn-patreon{color:#fff;background-color:#ff9f86;border-color:rgba(0,0,0,0.2)}.btn-patreon:active:hover,.btn-patreon.active:hover,.open>.dropdown-toggle.btn-patreon:hover,.btn-patreon:active:focus,.btn-patreon.active:focus,.open>.dropdown-toggle.btn-patreon:focus,.btn-patreon:active.focus,.btn-patreon.active.focus,.open>.dropdown-toggle.btn-patreon.focus{color:#fff;background-color:#f9523b;border-color:rgba(0,0,0,0.2)}
+.btn-patreon:active,.btn-patreon.active,.open>.dropdown-toggle.btn-patreon{background-image:none}
+.btn-patreon.disabled:hover,.btn-patreon[disabled]:hover,fieldset[disabled] .btn-patreon:hover,.btn-patreon.disabled:focus,.btn-patreon[disabled]:focus,fieldset[disabled] .btn-patreon:focus,.btn-patreon.disabled.focus,.btn-patreon[disabled].focus,fieldset[disabled] .btn-patreon.focus{background-color:#f96e6b;border-color:rgba(0,0,0,0.2)}
+.btn-patreon .badge{color:#1d282d;background-color:#fff}
+    </style>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-165300511-1', 'auto');
+ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+  </head>
+  <body>
+    <noscript>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <p style="color: red;"><b>WARNING: JavaScript is Disabled! You cannot OwO!</b></p>
+      <p style="color: white;">TFDNE requires JS. Please enable JS to for TFDNE to work. The page will display a scrolling grid of furry faces generated using a StyleGAN 2 neural network.</p>
+      <p style="color: white;">Example image:</p>
+      <img style="display: block; margin-left: auto; margin-right: auto;" height="512" width="512" src="./jpgs/seed03756.jpg" alt="Example furry portrait generated by StyleGAN 2">
+    </noscript>
+    <header>
+      <nav id="navbar" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div id="navcontainer" class="container-fluid">
+          <div class="navhar-header dropdown show">
+            <a href="#" class="navbar-brand dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img width="50" height="50" class="d-inline-block align-middle" src="./tfdne_paw_r.png" />
+              This Fursona Does Not Exist
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a href="#" class="navbar-brand dropdown-item">
+                    <img width="50" height="50" class="d-inline-block align-middle" src="./tfdne_paw_r.png" />
+                    This Fursona Does Not Exist
+                </a>
+                <a href="https://thisponydoesnotexist.net" class="navbar-brand dropdown-item">
+                    <img width="50" height="50" class="d-inline-block align-middle" src="./horseshoe.png" />
+                    This Pony Does Not Exist
+                </a>
+            </div>
+          </div>
+          <ul class="nav navbar-nav flex-fill">
+            <!--<li class="active">
+              <a class="nav-link" href="#">Home</a>
+	    </li>-->
+            <li>
+              <a class="btn nav-link" href="#" data-toggle="modal" data-target="#aboutModal">About</a>
+            </li>
+            <li>
+              <a class="btn nav-link" target="_blank" href="https://fursona.app">Editor</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+  	  <!--
+	    <li>
+	      <script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('', '#29abe0', 'R6R21OO86');kofiwidget2.draw();</script>
+	    </li>
+	    -->
+	    <li>
+              <a class="btn btn-social-icon btn-kofi" target="_blank" href="https://ko-fi.com/arfafax" data-toggle="tooltip" data-placement="bottom" title="Buy me a coffee">
+                <span class="fa"><img src="https://storage.ko-fi.com/cdn/cup-border.png" style="width: 36px !important"></img></span>
+              </a>
+            </li>
+
+	    <li>
+              <a class="btn btn-social-icon btn-patreon" target="_blank" href="https://patreon.com/arfafax" data-toggle="tooltip" data-placement="bottom" title="Support me on Patreon" >
+                <span class="fa fa-patreon"></span>
+              </a>
+            </li>
+
+            <li>
+              <a class="btn btn-social-icon btn-twitter" target="_blank" href="https://twitter.com/arfafax" data-toggle="tooltip" data-placement="bottom" title="Follow me on Twitter">
+                <span class="fa fa-twitter"></span>
+              </a>
+            </li>
+            <li>
+              <a class="btn btn-social-icon btn-github" target="_blank" href="https://github.com/arfafax" data-toggle="tooltip" data-placement="bottom" title="Read the code on GitHub">
+                <span class="fa fa-github"></span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div id='content'>
+      <div id='overlay'>
+        <div class="container h-100">
+          <div class="row align-items-center h-100">
+            <div class="col-6 mx-auto">
+              <div class="jumbotron" style="background: black !important">
+                <h1 style="color: grey !important" id="loading-text">Loading furries...</h1>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div id="preloader">
+                  <div id="loader"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='furry-quilt' class="container-fluid">
+      </div>
+      <div id='edges'>
+        <div class='top'></div>
+        <div class='right'></div>
+        <div class='bottom'></div>
+        <div class='left'></div>
+      </div>
+      <div id='controls'>
+        <button type='button' class='full-screen' title='Click button, or press f, to toggle full screen mode'>&#xf320;</button>
+      </div>
+      <div id="previewModal" aria-labelledby="previewModalLabel" aria-hidden="true" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" style="height: 650px !important; max-width: 600px !important" role="document">
+          <div class="modal-content">
+		  <!--<div class="flex" style="margin: 10px">-->
+		    <!--<h5 class="modal-title">OwO</h5>-->
+	      <!--</div>-->
+            <div id="prevModal" class="modal-body">
+              <div class="container-fluid">
+                <div class="d-flex flex-row-reverse">
+		  <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+                <div class="row">
+                  <div class="col">
+                    <a href="v2//jpgs/seed11111.jpg" target="_blank" id="selected-furry-link">
+                      <img class="border border-info rounded" id="selected-furry" src="v2/jpgs/seed11111.jpg" />
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <p id="likes"></p>
+                    <p id="clicks"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="aboutModal" aria-labelledby="aboutModalLabel" aria-hidden="true" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">About</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col">
+		    <p>Welcome to <strong style="font-weight: 550 !important">This Fursona Does Not Exist</strong>. This site displays a grid of AI-generated furry portraits trained by <a href="https://twitter.com/arfafax" target="_blank">arfa</a><a href="https://github.com/arfafax" target="_blank"></a> using <a href="https://github.com/NVlabs/stylegan2" target="_blank">nVidia's StyleGAN2</a> architecture.</p>
+		    <p>The training dataset consisted of ~55k SFW images from <a href="https://e621.net" target="_blank">e621.net</a> (excluded ponies and scalies for now; more on that later), cropped and aligned to faces using a custom <a href="https://pjreddie.com/darknet/yolo/" target="_blank">YOLOv3</a> network. The cropping data is archived in this <a href="https://github.com/arfafax/E621-Face-Dataset" target="_blank">GitHub repository</a>.</p>
+		    <p>The network was trained for 33 days (3.2 million iterations) on a TPUv3-32 pod.</p>
+		    <p>The final images were scaled up to 2x resolution and denoised using <a href="https://github.com/nagadomi/waifu2x" target="_blank">Waifu2x</a>.</p>
+		    <p>The model is available for download <a href="model/network-e621-r-512-3194880.pkl" target="_blank">here (347MB)</a> and <a href="https://mega.nz/file/Wa4EFQRA#XL9X5tGNrlp1bTdafPWK_Kg65fW3J5-CR9biGEfFm_g" target="_blank">here</a>.</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    This project would not have been possible without the following contributions:
+                    <ul>
+                      <li><a href="https://www.gwern.net/" target="_blank">Gwern</a><a href="https://twitter.com/gwern"></a> for providing the <a href="https://www.thiswaifudoesnotexist.net/" target="_blank">inspiration</a> and <a href="https://www.gwern.net/Faces" target="_blank">technical details</a> that kicked this whole thing off.</li>
+                      <li><a href="https://www.shawwn.com/" target="_blank">Shawn Presser</a><a href="https://twitter.com/theshawwn"></a><a href="https://github.com/shawwn"></a> and the rest of the <a href="https://discord.gg/zBb8E8w" target="_blank">Tensorfork community</a> for providing technical assistance and resources.</li>
+                      <li><a href="http://wiki.obormot.net/" target="_blank">Obormot</a> for giving me permission to use the site design and Javascript from <a href="https://www.obormot.net/demos/these-waifus-do-not-exist-v2-alt" target="_blank">These Waifus Do Not Exist</a> under MIT license.
+                        <li>The model was trained on Cloud TPUs provided by Google's <a href="https://www.tensorflow.org/tfrc" target="_blank">TensorFlow Research Cloud (TFRC)</a> program.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+		    <p> As the images are generated by an AI, they are non-copyrightable. I claim no legal ownership or rights to any of the images generated by this AI. Please use them responsibly.</p>
+		    <p> If you want to make your own art of any of these characters or find some other use for them, I'd love to <a href="https://twitter.com/arfafax" target="_blank">hear about it</a>.</p>
+		  </div>
+		</div>
+                <div class="container">
+                  <div class="d-flex justify-content-end">
+                    <img src="arfa_sig.png" style="width:55%"/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--
+      <h2>Click a furry to open</h2>
+      <footer class="footer mt-auto py-3 fixed-bottom">
+      <div class="container">
+      <span class="text-muted">Click a furry to open.</span>
+      </div>
+      </footer>
+    -->
+    	<h2>
+	  <span>0â€“9</span> to set scroll speed<br>
+	  <span>Spacebar</span> to pause/resume<br>
+	  â€˜<span>z</span>â€™ to toggle hover-zoom<br>
+	  â€˜<span>f</span>â€™ to full-screen<br>
+	  Drag to pan grid<br>
+	  Click an image to open in a new window
+	</h2>
+<script>
+	TXDNE = {
+		furrySourceURLBase: "https://thisfursonadoesnotexist.com/v2/jpgs-2x/seed",
+		furrySourceURLFileExtension: "jpg",
+		furrySetSize: 99999,
+		leftPadFurryIDsWithZeroes: true,
+		furryQuiltSelector: "#furry-quilt",
+		furrySize: 300,
+		furrysPerSecond: 1,
+		panTickInterval: 20,
+	};
+</script>
+<script src='js/TXDNE.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+  <script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+  </script>
+
+  </body>
+</html>
