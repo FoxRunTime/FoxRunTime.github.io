@@ -1,0 +1,137 @@
+<!doctype html>
+<!--
+	Another stupid thing developed by dangered wolf.
+	Inspired by the work done by https://kidi.ng/wanna-see-a-whiter-white/
+-->
+<html>
+	<head>
+		<title>
+			Destroy my eyes
+		</title>
+		<style>
+			html {
+				background:#fff!important;
+				filter:brightness(10);
+				font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+			}
+
+			.criticalError {
+				filter:brightness(1);
+			}
+			.hidden {
+				display:none;
+			}
+
+			:not(:root):fullscreen::backdrop {
+				background: #fff;
+			}
+
+			h1 {
+				color:#000;
+				filter:brightness(0);
+				z-index:10
+			}
+
+			video {
+				position:fixed;
+				top:0;
+				left:0;
+				right:0;
+				bottom:0;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 id="clickText" style="position:fixed">Click to expand</h1>
+		<h1 class="hidden" id="nohdr">your device doesn't support HDR :(</h1>
+		<h1 class="hidden" id="fullscreenBlink" style="position:fixed;margin-top:80px">In Chromium browsers, this only works in full screen.</h1>
+		<h2 class="hidden" id="firefoxsucks">Warning: You seem to be using Firefox, which lacks HDR support. <br><br>Come back to this page on an HDR-capable device in Google Chrome, Apple Safari, or Microsoft Edge.</h2>
+		<div class="player">
+			<video autoplay="" loop="" muted="" src="white1.mp4"></video>
+			<video autoplay="" loop="" muted="" src="white2.mp4"></video>
+			<video autoplay="" loop="" muted="" src="white1.webm"></video>
+		</div>
+	</body>
+
+	<script>
+		// check if mobile
+		if (navigator.userAgent.match(/Mobile/i)) {
+			document.getElementById("clickText").classList.add("hidden");
+		}
+
+		if (!(window.matchMedia("(color-gamut: p3)").matches || (screen.colorDepth > 24 && navigator.userAgent.indexOf("Firefox/1") > -1)) && navigator.userAgent.indexOf("Android") === -1) {
+			document.getElementById("nohdr").classList.remove("hidden");
+			document.getElementById("clickText").classList.add("hidden");
+			
+			document.querySelector("html").classList.add("criticalError");
+			document.querySelector("body").classList.add("criticalError");
+			document.querySelector(".player").classList.add("hidden");
+			if (typeof window.mozInnerScreenX !== "undefined" || navigator.userAgent.indexOf("Firefox") !== -1) {
+				document.getElementById("firefoxsucks").classList.remove("hidden");
+			}
+		} else {
+
+			// Enter full screen
+			function enterFullscreen() {
+
+				var element = document.body;
+
+				// Check which implementation is available
+				var requestMethod = element.requestFullScreen ||
+						element.webkitRequestFullscreen ||
+						element.webkitRequestFullScreen ||
+						element.mozRequestFullScreen ||
+						element.msRequestFullscreen;
+
+				if (requestMethod) { 
+					requestMethod.apply(element);
+
+					document.getElementById("fullscreenBlink").classList.add("hidden");
+					document.getElementById("clickText").classList.add("hidden");
+				}
+
+			}
+
+
+			function fullscreenchange() {
+
+				if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+					// check if chromium browser
+					document.getElementById("fullscreenBlink").classList.add("hidden");
+					document.getElementById("clickText").classList.add("hidden");
+				} else {
+					console.log('Leaving full-screen mode.');
+
+					if (navigator.userAgent.indexOf("Chrome") !== -1) {
+						document.getElementById("fullscreenBlink").classList.remove("hidden");
+					}
+
+					document.getElementById("clickText").classList.remove("hidden");
+
+					// check if mobile
+					if (navigator.userAgent.match(/Mobile/i)) {
+						document.getElementById("clickText").classList.add("hidden");
+					}
+				}
+				console.log("fullscreenchange")
+			}
+			document.body.addEventListener("fullscreenchange", fullscreenchange);
+			document.body.addEventListener("webkitfullscreenchange", fullscreenchange);
+			document.body.addEventListener("mozfullscreenchange", fullscreenchange);
+			document.body.addEventListener("MSFullscreenChange", fullscreenchange);
+
+			document.body.onclick = function() {
+				enterFullscreen() 
+			}
+			document.body.onkeydown = function() {
+				enterFullscreen()
+			}
+			document.body.onkeyup = function() {
+				enterFullscreen() 
+			}
+			document.body.onmousemove = function() {
+				enterFullscreen()
+			}
+		}
+	</script>
+</html>
